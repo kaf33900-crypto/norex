@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <title>Text Counter | NEXORA</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0b1020;
+      --panel: #151e32;
+      --panel-light: #11192a;
+      --border: #2b3956;
+      --text: #f5f7ff;
+      --muted: #a9b5d0;
+      --purple: #6558f5;
+      --blue: #4389ff;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 15% 0%, #28205a 0%, transparent 38%),
+        radial-gradient(ellipse at 100% 30%, #102c50 0%, transparent 32%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      padding: 28px 20px 40px;
+    }
+
+    button, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      transition: transform .2s, opacity .2s, border-color .2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: .92;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 5px 25px #6558f544;
+    }
+
+    .brand-name {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-tagline {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .nav-link {
+      color: #c7d2fe;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 46px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: #c4baff;
+      background: #6558f51c;
+      border: 1px solid #6558f544;
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 47px);
+      letter-spacing: -1.5px;
+      margin-bottom: 13px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #9e91ff, #5fa9ff);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: linear-gradient(145deg, #18233a, #121a2c);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 21px 18px;
+      min-width: 0;
+      box-shadow: 0 12px 30px #00000012;
+    }
+
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 17px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #bcb2ff;
+      background: #6558f526;
+      font-size: 17px;
+    }
+
+    .stat-value {
+      font-size: clamp(23px, 3vw, 31px);
+      font-weight: 750;
+      letter-spacing: -.7px;
+      overflow-wrap: anywhere;
+    }
+
+    .stat-note {
+      color: #7e8eaf;
+      font-size: 11px;
+      margin-top: 7px;
+    }
+
+    .editor-card {
+      background: linear-gradient(150deg, #151e32, #101727);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 55px #00000020;
+    }
+
+    .editor-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .editor-heading h2 {
+      font-size: 17px;
+    }
+
+    .live-badge {
+      color: #86efac;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      resize: vertical;
+      background: var(--panel-light);
+      border: 1px solid #34415f;
+      border-radius: 13px;
+      padding: 19px;
+      color: var(--text);
+      outline: none;
+      line-height: 1.85;
+      font-size: 15px;
+      display: block;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    textarea:focus {
+      border-color: #8175ff;
+      box-shadow: 0 0 0 3px #6558f51c;
+    }
+
+    textarea::placeholder {
+      color: #7383a5;
+    }
+
+    .editor-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      color: #8190b2;
+      font-size: 12px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 1px solid #34415f;
+      background: #1a2540;
+      color: #e5eaff;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      border: none;
+      color: white;
+      background: linear-gradient(110deg, var(--purple), #477df4);
+      box-shadow: 0 6px 20px #6558f533;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #a99fff;
+      outline-offset: 3px;
+    }
+
+    .message {
+      min-height: 20px;
+      color: #86efac;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #7383a5;
+      font-size: 12px;
+      margin-top: 32px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 760px) {
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      body {
+        padding: 20px 14px 30px;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .stat-card {
+        padding: 17px 15px;
+      }
+
+      .editor-card {
+        padding: 17px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .brand-tagline {
+        font-size: 10px;
+      }
+
+      .nav-link {
+        font-size: 12px;
+      }
+
+      .toolbar .btn {
+        flex: 1 1 40%;
+        padding: 11px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <nav class="navbar">
+      <a class="brand" href="main.html">
+        <div class="brand-icon">N</div>
+        <div>
+          <div class="brand-name">NEXORA</div>
+          <div class="brand-tagline">Tools for a Smarter World</div>
+        </div>
+      </a>
+
+      <a class="nav-link" href="main.html">← Back to Home</a>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">FREE TEXT TOOL</div>
+      <h1>Text <span class="gradient-text">Counter</span></h1>
+      <p>
+        Analyze your text in seconds.<br>
+        Simple, fast, and completely free.
+      </p>
+    </header>
+
+    <section class="stats" aria-label="Text statistics">
+      <article class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Words</span>
+          <span class="stat-icon">Aa</span>
+        </div>
+        <div class="stat-value" id="words">0</div>
+        <div class="stat-note">Total words</div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Characters</span>
+          <span class="stat-icon">✳</span>
+        </div>
+        <div class="stat-value" id="characters">0</div>
+        <div class="stat-note">Including spaces</div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Sentences</span>
+          <span class="stat-icon">☰</span>
+        </div>
+        <div class="stat-value" id="sentences">0</div>
+        <div class="stat-note">Estimated sentences</div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Reading Time</span>
+          <span class="stat-icon">◷</span>
+        </div>
+        <div class="stat-value" id="readingTime">0 sec</div>
+        <div class="stat-note">Estimated reading time</div>
+      </article>
+    </section>
+
+    <section class="editor-card">
+      <div class="editor-heading">
+        <h2>Your Text</h2>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          Live analysis
+        </div>
+      </div>
+
+      <textarea
+        id="textInput"
+        placeholder="Paste or type your text here to see the statistics update automatically..."
+        aria-label="Enter text to analyze"
+        spellcheck="true"
+      ></textarea>
+
+      <div class="editor-footer">
+        <span id="withoutSpaces">0 characters without spaces</span>
+        <span id="paragraphs">0 paragraphs</span>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" id="copyBtn" type="button">
+          Copy Text
+        </button>
+        <button class="btn" id="upperBtn" type="button">
+          UPPERCASE
+        </button>
+        <button class="btn" id="lowerBtn" type="button">
+          lowercase
+        </button>
+        <button class="btn" id="clearBtn" type="button">
+          Clear Text
+        </button>
+      </div>
+
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer class="footer">
+      <p>NEXORA — Tools for a Smarter World</p>
+      <p>Your text stays in this page. No account required.</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const textInput = document.getElementById("textInput");
+
+    const wordsOutput = document.getElementById("words");
+    const charactersOutput = document.getElementById("characters");
+    const sentencesOutput = document.getElementById("sentences");
+    const readingTimeOutput = document.getElementById("readingTime");
+    const withoutSpacesOutput = document.getElementById("withoutSpaces");
+    const paragraphsOutput = document.getElementById("paragraphs");
+    const message = document.getElementById("message");
+
+    function analyzeText() {
+      const text = textInput.value;
+      const trimmedText = text.trim();
+
+      // Count words in Arabic or English.
+      const words = trimmedText
+        ? (trimmedText.match(/\S+/gu) || []).length
+        : 0;
+
+      // Count all characters, including spaces and line breaks.
+      const characters = text.length;
+
+      // Count characters after removing all whitespace.
+      const charactersWithoutSpaces = text.replace(/\s/gu, "").length;
+
+      // Estimate sentences from common Arabic and English punctuation.
+      const sentenceParts = trimmedText
+        ? trimmedText.split(/[.!?؟。]+/u).filter(part => part.trim().length > 0)
+        : [];
+
+      const sentences = sentenceParts.length;
+
+      // Count non-empty lines/groups of text separated by blank lines.
+      const paragraphs = trimmedText
+        ? trimmedText.split(/\n\s*\n/u).filter(part => part.trim().length > 0).length
+        : 0;
+
+      // Use an approximate reading speed of 200 words per minute.
+      const totalSeconds = words === 0
+        ? 0
+        : Math.max(1, Math.ceil((words / 200) * 60));
+
+      let readingTime;
+
+      if (totalSeconds === 0) {
+        readingTime = "0 sec";
+      } else if (totalSeconds < 60) {
+        readingTime = totalSeconds + " sec";
+      } else {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        readingTime = seconds === 0
+          ? minutes + " min"
+          : minutes + "m " + seconds + "s";
+      }
+
+      wordsOutput.textContent = words.toLocaleString();
+      charactersOutput.textContent = characters.toLocaleString();
+      sentencesOutput.textContent = sentences.toLocaleString();
+      readingTimeOutput.textContent = readingTime;
+      withoutSpacesOutput.textContent =
+        charactersWithoutSpaces.toLocaleString() + " characters without spaces";
+      paragraphsOutput.textContent =
+        paragraphs + (paragraphs === 1 ? " paragraph" : " paragraphs");
+    }
+
+    function showMessage(text) {
+      message.textContent = text;
+    }
+
+    textInput.addEventListener("input", () => {
+      analyzeText();
+      showMessage("");
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const text = textInput.value;
+
+      if (!text) {
+        showMessage("Write some text first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showMessage("Text copied successfully!");
+      } catch (error) {
+        textInput.focus();
+        textInput.select();
+
+        try {
+          const copied = document.execCommand("copy");
+          showMessage(copied
+            ? "Text copied successfully!"
+            : "Select the text and copy it manually.");
+        } catch {
+          showMessage("Select the text and copy it manually.");
+        }
+
+        window.getSelection()?.removeAllRanges();
+      }
+    });
+
+    document.getElementById("upperBtn").addEventListener("click", () => {
+      textInput.value = textInput.value.toUpperCase();
+      analyzeText();
+      showMessage("Text converted to uppercase.");
+    });
+
+    document.getElementById("lowerBtn").addEventListener("click", () => {
+      textInput.value = textInput.value.toLowerCase();
+      analyzeText();
+      showMessage("Text converted to lowercase.");
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      textInput.value = "";
+      analyzeText();
+      showMessage("Text cleared.");
+      textInput.focus();
+    });
+
+    analyzeText();
+  </script>
+</body>
+</html>

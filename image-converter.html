@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Converter | NEXORA</title>
+<style>
+:root {
+  --bg: #0b0b14;
+  --panel: #141421;
+  --panel2: #1b1b2c;
+  --purple: #8b5cf6;
+  --blue: #6366f1;
+  --text: #f5f3ff;
+  --muted: #a3a3b8;
+  --border: #292940;
+  --green: #34d399;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #211342 0%, var(--bg) 48%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+header {
+  padding: 22px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,11,20,.75);
+}
+.logo { font-size: 25px; font-weight: 800; letter-spacing: 2px; }
+.logo span { color: #a78bfa; }
+.home {
+  color: #d8ccff;
+  text-decoration: none;
+  font-size: 14px;
+}
+main { max-width: 950px; margin: 55px auto; padding: 0 20px 60px; }
+.eyebrow {
+  color: #b6a0ff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
+h1 { text-align: center; font-size: clamp(32px, 5vw, 48px); margin: 15px 0; }
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 35px;
+}
+.card {
+  background: rgba(20,20,33,.95);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 25px 80px #0004;
+}
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+.tab {
+  padding: 14px 10px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+.tab.active {
+  color: white;
+  border-color: var(--purple);
+  background: #5b21b6;
+}
+.dropzone {
+  display: block;
+  text-align: center;
+  border: 2px dashed #484064;
+  border-radius: 17px;
+  padding: 35px 15px;
+  background: #11111e;
+  cursor: pointer;
+  transition: .2s;
+}
+.dropzone:hover, .dropzone.drag {
+  border-color: #a78bfa;
+  background: #1c1630;
+}
+.upload-icon { font-size: 38px; margin-bottom: 12px; }
+.dropzone strong { display: block; font-size: 17px; margin-bottom: 8px; }
+.dropzone small { color: var(--muted); line-height: 1.6; }
+#fileInput { display: none; }
+.files { display: grid; gap: 10px; margin-top: 18px; }
+.file {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.thumb {
+  width: 54px; height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #090910;
+}
+.file-info { flex: 1; min-width: 0; }
+.file-name { overflow-wrap: anywhere; font-size: 13px; font-weight: bold; }
+.file-meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.remove {
+  border: 0; background: #3a1d32; color: #fda4af;
+  padding: 8px 10px; border-radius: 8px; cursor: pointer;
+}
+.settings { margin-top: 25px; }
+label.setting-label {
+  display: block; font-size: 13px; color: #d6d3e8;
+  font-weight: bold; margin-bottom: 10px;
+}
+select, input[type="text"] {
+  width: 100%; padding: 14px; border-radius: 11px;
+  background: #0d0d18; color: white; border: 1px solid var(--border);
+  outline: none; font-size: 14px;
+}
+select:focus, input:focus { border-color: var(--purple); }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 9px; }
+.primary {
+  width: 100%; padding: 16px; margin-top: 24px;
+  border: 0; border-radius: 12px;
+  background: linear-gradient(100deg, var(--purple), var(--blue));
+  color: white; font-size: 15px; font-weight: bold;
+  cursor: pointer; transition: .2s;
+}
+.primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.primary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.status { font-size: 13px; line-height: 1.6; margin-top: 16px; text-align: center; }
+.status.error { color: #fda4af; }
+.status.success { color: var(--green); }
+.results { display: grid; gap: 10px; margin-top: 18px; }
+.result {
+  padding: 15px; background: #10251f; border: 1px solid #24513f;
+  border-radius: 12px; display: flex; align-items: center; gap: 12px;
+}
+.result-info { flex: 1; min-width: 0; }
+.result-name { overflow-wrap: anywhere; font-size: 13px; font-weight: bold; }
+.result-meta { color: #a7c9bb; font-size: 12px; margin-top: 5px; }
+.download {
+  color: white; text-decoration: none; background: #16634b;
+  padding: 10px 12px; border-radius: 8px; font-size: 12px; font-weight: bold;
+}
+footer { border-top: 1px solid var(--border); padding: 25px; text-align: center; color: var(--muted); font-size: 12px; }
+.hidden { display: none !important; }
+@media (max-width: 600px) {
+  header { padding: 18px 5%; }
+  main { margin-top: 35px; padding: 0 14px 40px; }
+  .card { padding: 18px; }
+  .file { gap: 9px; }
+  .thumb { width: 44px; height: 44px; }
+  .download { padding: 9px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NEXORA<span>.</span></div>
+  <a class="home" href="main.html">← Back to Home</a>
+</header>
+
+<main>
+  <div class="eyebrow">Free Online Tool</div>
+  <h1>Image Converter</h1>
+  <p class="subtitle">Convert images between popular formats or combine multiple images into a single PDF. Simple, fast, and processed in your browser.</p>
+
+  <section class="card">
+    <div class="tabs">
+      <button class="tab active" id="imageTab" type="button">Image Converter</button>
+      <button class="tab" id="pdfTab" type="button">Images to PDF</button>
+    </div>
+
+    <label class="dropzone" id="dropzone" for="fileInput">
+      <div class="upload-icon">↥</div>
+      <strong>Drop your images here</strong>
+      <small>or click to browse your device<br>JPG, PNG and WEBP supported</small>
+    </label>
+    <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+
+    <div class="files" id="fileList"></div>
+
+    <div class="settings" id="formatSettings">
+      <label class="setting-label" for="format">Convert images to</label>
+      <select id="format">
+        <option value="image/jpeg">JPG</option>
+        <option value="image/png">PNG</option>
+        <option value="image/webp">WEBP</option>
+      </select>
+      <p class="hint">Note: JPG does not support transparency. Transparent areas may appear with a white background.</p>
+    </div>
+
+    <div class="settings hidden" id="pdfSettings">
+      <label class="setting-label" for="pageSize">PDF page size</label>
+      <select id="pageSize">
+        <option value="fit">Fit each image to its own page</option>
+        <option value="a4">A4 portrait pages</option>
+      </select>
+      <p class="hint">Images will be placed in the selected order, with one image per PDF page.</p>
+    </div>
+
+    <button class="primary" id="convertBtn" type="button" disabled>Convert Images</button>
+    <div class="status" id="status" role="status" aria-live="polite">Upload one or more images to get started.</div>
+    <div class="results" id="results"></div>
+  </section>
+</main>
+
+<footer>© 2026 NEXORA. Tools for a Smarter World.</footer>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const dropzone = document.getElementById('dropzone');
+const fileList = document.getElementById('fileList');
+const format = document.getElementById('format');
+const formatSettings = document.getElementById('formatSettings');
+const pdfSettings = document.getElementById('pdfSettings');
+const convertBtn = document.getElementById('convertBtn');
+const statusBox = document.getElementById('status');
+const results = document.getElementById('results');
+const imageTab = document.getElementById('imageTab');
+const pdfTab = document.getElementById('pdfTab');
+
+let files = [];
+let mode = 'image';
+let outputUrls = [];
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function setStatus(message, type = '') {
+  statusBox.textContent = message;
+  statusBox.className = 'status ' + type;
+}
+
+function clearResults() {
+  outputUrls.forEach(url => URL.revokeObjectURL(url));
+  outputUrls = [];
+  results.replaceChildren();
+}
+
+function isSupportedImage(file) {
+  return ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+}
+
+function addFiles(incoming) {
+  const valid = Array.from(incoming).filter(isSupportedImage);
+  const rejected = incoming.length - valid.length;
+
+  files = files.concat(valid);
+  clearResults();
+  renderFiles();
+
+  if (rejected > 0) {
+    setStatus('Some files were skipped. Please use JPG, PNG or WEBP images.', 'error');
+  } else if (files.length) {
+    setStatus(files.length + ' image(s) ready to convert.');
+  }
+}
+
+function renderFiles() {
+  fileList.replaceChildren();
+
+  files.forEach((file, index) => {
+    const row = document.createElement('div');
+    row.className = 'file';
+
+    const img = document.createElement('img');
+    img.className = 'thumb';
+    img.alt = 'Image preview';
+    img.src = URL.createObjectURL(file);
+
+    const info = document.createElement('div');
+    info.className = 'file-info';
+
+    const name = document.createElement('div');
+    name.className = 'file-name';
+    name.textContent = file.name;
+
+    const meta = document.createElement('div');
+    meta.className = 'file-meta';
+    meta.textContent = file.type.split('/')[1].toUpperCase() + ' · ' + formatBytes(file.size);
+
+    const remove = document.createElement('button');
+    remove.className = 'remove';
+    remove.type = 'button';
+    remove.textContent = 'Remove';
+    remove.setAttribute('aria-label', 'Remove ' + file.name);
+    remove.addEventListener('click', () => {
+      files.splice(index, 1);
+      clearResults();
+      renderFiles();
+      setStatus(files.length ? files.length + ' image(s) ready to convert.' : 'Upload one or more images to get started.');
+    });
+
+    info.append(name, meta);
+    row.append(img, info, remove);
+    fileList.append(row);
+  });
+
+  convertBtn.disabled = files.length === 0;
+}
+
+function setMode(nextMode) {
+  mode = nextMode;
+  imageTab.classList.toggle('active', mode === 'image');
+  pdfTab.classList.toggle('active', mode === 'pdf');
+  formatSettings.classList.toggle('hidden', mode !== 'image');
+  pdfSettings.classList.toggle('hidden', mode !== 'pdf');
+  convertBtn.textContent = mode === 'pdf' ? 'Create PDF' : 'Convert Images';
+  clearResults();
+  setStatus(files.length ? files.length + ' image(s) ready to convert.' : 'Upload one or more images to get started.');
+}
+
+imageTab.addEventListener('click', () => setMode('image'));
+pdfTab.addEventListener('click', () => setMode('pdf'));
+
+fileInput.addEventListener('change', event => {
+  addFiles(Array.from(event.target.files || []));
+  fileInput.value = '';
+});
+
+dropzone.addEventListener('dragover', event => {
+  event.preventDefault();
+  dropzone.classList.add('drag');
+});
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', event => {
+  event.preventDefault();
+  dropzone.classList.remove('drag');
+  addFiles(Array.from(event.dataTransfer.files || []));
+});
+
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(img);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Could not read ' + file.name));
+    };
+    img.src = url;
+  });
+}
+
+function canvasToBlob(canvas, mimeType) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(blob => {
+      if (blob) resolve(blob);
+      else reject(new Error('This image format could not be created by your browser.'));
+    }, mimeType, 0.92);
+  });
+}
+
+function safeBaseName(name) {
+  return name.replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') || 'image';
+}
+
+async function convertOneImage(file, mimeType) {
+  const img = await loadImage(file);
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  const ctx = canvas.getContext('2d');
+  if (mimeType === 'image/jpeg') {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  ctx.drawImage(img, 0, 0);
+
+  const blob = await canvasToBlob(canvas, mimeType);
+  const extension = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp'
+  }[mimeType];
+
+  return {
+    blob,
+    name: safeBaseName(file.name) + '.' + extension,
+    originalSize: file.size
+  };
+}
+
+function addDownload(blob, name, details) {
+  const url = URL.createObjectURL(blob);
+  outputUrls.push(url);
+
+  const row = document.createElement('div');
+  row.className = 'result';
+
+  const icon = document.createElement('div');
+  icon.textContent = name.toLowerCase().endsWith('.pdf') ? '📄' : '🖼️';
+  icon.style.fontSize = '26px';
+
+  const info = document.createElement('div');
+  info.className = 'result-info';
+
+  const title = document.createElement('div');
+  title.className = 'result-name';
+  title.textContent = name;
+
+  const meta = document.createElement('div');
+  meta.className = 'result-meta';
+  meta.textContent = details;
+
+  const link = document.createElement('a');
+  link.className = 'download';
+  link.href = url;
+  link.download = name;
+  link.textContent = 'Download';
+
+  info.append(title, meta);
+  row.append(icon, info, link);
+  results.append(row);
+}
+
+function canvasBlobFromImage(img, mimeType = 'image/jpeg') {
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0);
+  return canvasToBlob(canvas, mimeType);
+}
+
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Could not prepare image for PDF.'));
+    reader.readAsDataURL(blob);
+  });
+}
+
+function dataUrlToBytes(dataUrl) {
+  const base64 = dataUrl.split(',')[1];
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+function concatBytes(chunks) {
+  const total = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+  const result = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    result.set(chunk, offset);
+    offset += chunk.length;
+  }
+  return result;
+}
+
+function makePdf(jpegImages, pageSize) {
+  const objects = [];
+  const pageRefs = [];
+  let nextId = 3;
+
+  const catalogId = 1;
+  const pagesId = 2;
+  const pages = [];
+
+  for (const item of jpegImages) {
+    const imageId = nextId++;
+    const contentId = nextId++;
+    const pageId = nextId++;
+
+    let pageW, pageH, x, y, drawW, drawH;
+
+    if (pageSize === 'a4') {
+      pageW = 595.28;
+      pageH = 841.89;
+      const margin = 28;
+      const scale = Math.min(
+        (pageW - margin * 2) / item.width,
+        (pageH - margin * 2) / item.height
+      );
+      drawW = item.width * scale;
+      drawH = item.height * scale;
+      x = (pageW - drawW) / 2;
+      y = (pageH - drawH) / 2;
+    } else {
+      const scale = Math.min(1, 2000 / Math.max(item.width, item.height));
+      drawW = item.width * scale;
+      drawH = item.height * scale;
+      pageW = drawW;
+      pageH = drawH;
+      x = 0;
+      y = 0;
+    }
+
+    const content = new TextEncoder().encode(
+      'q\n' + drawW.toFixed(3) + ' 0 0 ' + drawH.toFixed(3) + ' ' +
+      x.toFixed(3) + ' ' + y.toFixed(3) + ' cm\n/Im0 Do\nQ\n'
+    );
+
+    const imageHeader = new TextEncoder().encode(
+      imageId + ' 0 obj\n<< /Type /XObject /Subtype /Image /Width ' +
+      item.width + ' /Height ' + item.height +
+      ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' +
+      item.bytes.length + ' >>\nstream\n'
+    );
+    const imageFooter = new TextEncoder().encode('\nendstream\nendobj\n');
+    objects.push({ id: imageId, bytes: concatBytes([imageHeader, item.bytes, imageFooter]) });
+
+    const contentHeader = new TextEncoder().encode(
+      contentId + ' 0 obj\n<< /Length ' + content.length + ' >>\nstream\n'
+    );
+    const contentFooter = new TextEncoder().encode('\nendstream\nendobj\n');
+    objects.push({ id: contentId, bytes: concatBytes([contentHeader, content, contentFooter]) });
+
+    const page = new TextEncoder().encode(
+      pageId + ' 0 obj\n<< /Type /Page /Parent ' + pagesId +
+      ' 0 R /MediaBox [0 0 ' + pageW.toFixed(3) + ' ' + pageH.toFixed(3) +
+      '] /Resources << /XObject << /Im0 ' + imageId +
+      ' 0 R >> >> /Contents ' + contentId + ' 0 R >>\nendobj\n'
+    );
+    objects.push({ id: pageId, bytes: page });
+    pages.push(pageId);
+    pageRefs.push(pageId + ' 0 R');
+  }
+
+  objects.push({
+    id: catalogId,
+    bytes: new TextEncoder().encode(
+      '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n'
+    )
+  });
+
+  objects.push({
+    id: pagesId,
+    bytes: new TextEncoder().encode(
+      '2 0 obj\n<< /Type /Pages /Kids [' + pageRefs.join(' ') +
+      '] /Count ' + pages.length + ' >>\nendobj\n'
+    )
+  });
+
+  objects.sort((a, b) => a.id - b.id);
+
+  const header = new Uint8Array([
+    0x25,0x50,0x44,0x46,0x2d,0x31,0x2e,0x34,0x0a,
+    0x25,0xe2,0xe3,0xcf,0xd3,0x0a
+  ]);
+  const chunks = [header];
+  const offsets = [0];
+  let position = header.length;
+
+  for (const obj of objects) {
+    offsets[obj.id] = position;
+    chunks.push(obj.bytes);
+    position += obj.bytes.length;
+  }
+
+  const xrefStart = position;
+  let xref = 'xref\n0 ' + (Math.max(...objects.map(o => o.id)) + 1) +
+    '\n0000000000 65535 f \n';
+
+  for (let i = 1; i <= Math.max(...objects.map(o => o.id)); i++) {
+    xref += String(offsets[i] || 0).padStart(10, '0') + ' 00000 n \n';
+  }
+
+  xref += 'trailer\n<< /Size ' + (Math.max(...objects.map(o => o.id)) + 1) +
+    ' /Root 1 0 R >>\nstartxref\n' + xrefStart + '\n%%EOF';
+
+  chunks.push(new TextEncoder().encode(xref));
+  return new Blob(chunks, { type: 'application/pdf' });
+}
+
+async function convertToPdf() {
+  const images = [];
+
+  for (let i = 0; i < files.length; i++) {
+    setStatus('Preparing image ' + (i + 1) + ' of ' + files.length + '...');
+    const img = await loadImage(files[i]);
+    const blob = await canvasBlobFromImage(img, 'image/jpeg');
+    const dataUrl = await blobToDataUrl(blob);
+    images.push({
+      bytes: dataUrlToBytes(dataUrl),
+      width: img.naturalWidth,
+      height: img.naturalHeight
+    });
+  }
+
+  const pdf = makePdf(images, document.getElementById('pageSize').value);
+  const baseName = files.length === 1
+    ? safeBaseName(files[0].name)
+    : 'nexora-images';
+  addDownload(pdf, baseName + '.pdf', files.length + ' image(s) · ' + formatBytes(pdf.size));
+  setStatus('PDF created successfully. Your file is ready to download.', 'success');
+}
+
+convertBtn.addEventListener('click', async () => {
+  if (!files.length) return;
+
+  convertBtn.disabled = true;
+  clearResults();
+
+  try {
+    if (mode === 'pdf') {
+      await convertToPdf();
+    } else {
+      for (let i = 0; i < files.length; i++) {
+        setStatus('Converting image ' + (i + 1) + ' of ' + files.length + '...');
+        const output = await convertOneImage(files[i], format.value);
+        addDownload(
+          output.blob,
+          output.name,
+          formatBytes(output.originalSize) + ' → ' + formatBytes(output.blob.size)
+        );
+      }
+      setStatus('Conversion complete! Download your converted images below.', 'success');
+    }
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || 'Something went wrong. Please try another image.', 'error');
+  } finally {
+    convertBtn.disabled = files.length === 0;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact NEXORA for technical support, feedback, and general inquiries about our online tools.">
+<title>Contact Us | NEXORA</title>
+
+<style>
+:root {
+  --bg: #0b0b14;
+  --panel: #141421;
+  --panel2: #1b1b2c;
+  --text: #f5f3ff;
+  --muted: #b2b0c5;
+  --purple: #a78bfa;
+  --blue: #6366f1;
+  --border: #292940;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #211342 0%, var(--bg) 48%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+header {
+  padding: 22px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,11,20,.75);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.logo span { color: var(--purple); }
+
+header a {
+  color: #d8ccff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+main {
+  max-width: 950px;
+  margin: 55px auto;
+  padding: 0 20px 60px;
+}
+
+.eyebrow {
+  text-align: center;
+  color: var(--purple);
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  font-size: clamp(34px, 5vw, 48px);
+  margin: 12px 0;
+}
+
+.intro {
+  text-align: center;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto 35px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.info-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.icon {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.info-card h3 {
+  font-size: 16px;
+  margin: 5px 0 8px;
+}
+
+.info-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.contact-card {
+  background: rgba(20,20,33,.96);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 25px 80px #0004;
+}
+
+.contact-card h2 {
+  font-size: 25px;
+  margin: 0 0 8px;
+}
+
+.contact-card p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.email {
+  display: block;
+  color: #c4b5fd;
+  font-size: clamp(15px, 3vw, 19px);
+  font-weight: bold;
+  overflow-wrap: anywhere;
+  margin: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 20px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary {
+  background: linear-gradient(100deg, var(--purple), var(--blue));
+  color: white;
+  border: none;
+}
+
+.secondary {
+  background: var(--panel2);
+  color: white;
+  border: 1px solid var(--border);
+}
+
+.btn:hover { filter: brightness(1.12); }
+
+.note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+footer a {
+  color: #c4b5fd;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+@media(max-width:700px) {
+  header { padding: 18px 5%; }
+  main { margin-top: 35px; padding: 0 14px 40px; }
+  .grid { grid-template-columns: 1fr; }
+  .contact-card { padding: 24px 17px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">NEXORA<span>.</span></div>
+  <a href="main.html">← Back to Home</a>
+</header>
+
+<main>
+  <div class="eyebrow">WE'RE HERE TO HELP</div>
+  <h1>Contact Us</h1>
+
+  <p class="intro">
+    Have a question, found a problem, or have an idea to improve NEXORA?
+    We'd love to hear from you.
+  </p>
+
+  <section class="grid">
+    <div class="info-card">
+      <div class="icon">✉️</div>
+      <h3>General Inquiries</h3>
+      <p>Questions about NEXORA and our online tools.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon">🛠️</div>
+      <h3>Technical Support</h3>
+      <p>Report errors or issues you encounter while using our tools.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon">💡</div>
+      <h3>Suggestions</h3>
+      <p>Share ideas for new tools and improvements.</p>
+    </div>
+  </section>
+
+  <section class="contact-card">
+    <h2>Get in Touch</h2>
+    <p>Send us an email and we'll review your message.</p>
+
+    <a class="email" href="mailto:nexora.contact.n@gmail.com">
+      nexora.contact.n@gmail.com
+    </a>
+
+    <div class="buttons">
+      <a class="btn primary"
+         href="mailto:nexora.contact.n@gmail.com?subject=NEXORA%20Website%20Inquiry">
+        ✉ Send an Email
+      </a>
+
+      <button class="btn secondary" id="copyBtn" type="button">
+        Copy Email
+      </button>
+    </div>
+
+    <p class="note">
+      When contacting us, please describe your question or issue clearly.
+    </p>
+    <p class="note" id="copyStatus" aria-live="polite"></p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 NEXORA. Tools for a Smarter World.</p>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms of Service</a>
+  <a href="contact.html">Contact Us</a>
+</footer>
+
+<script>
+const copyBtn = document.getElementById('copyBtn');
+const copyStatus = document.getElementById('copyStatus');
+const email = 'nexora.contact.n@gmail.com';
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(email);
+    copyStatus.textContent = 'Email copied successfully!';
+  } catch (error) {
+    copyStatus.textContent = 'Please copy the email manually: ' + email;
+  }
+});
+</script>
+
+</body>
+</html>
