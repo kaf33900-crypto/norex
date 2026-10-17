@@ -1,472 +1,654 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7312902540885556"
-  crossorigin="anonymous"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090914">
-  <meta name="description" content="NEXORA — Smart, simple and powerful online tools for everyone.">
-  <title>NEXORA — Tools for a Smarter World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090914">
 
-  <style>
-    :root {
-      --bg: #090914;
-      --panel: #111120;
-      --panel2: #171529;
-      --purple: #8b5cf6;
-      --blue: #6366f1;
-      --text: #f7f5ff;
-      --muted: #a5a2bd;
-      --border: rgba(167, 139, 250, 0.17);
-    }
+    <meta name="description" content="NEXORA provides free, simple and powerful online tools for productivity, file conversion, calculations and more.">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta name="robots" content="index, follow">
 
-    html {
-      scroll-behavior: smooth;
-    }
+    <title>NEXORA — Tools for a Smarter World</title>
 
-    body {
-      background:
-        radial-gradient(ellipse at 50% 0%, #21133c 0%, transparent 48%),
-        var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
+    <!-- Google AdSense -->
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7312902540885556"
+        crossorigin="anonymous"></script>
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    <style>
+        :root {
+            --background: #090914;
+            --surface: #121225;
+            --surface-hover: #1a1a33;
+            --purple: #8b5cf6;
+            --purple-light: #a78bfa;
+            --text: #f5f3ff;
+            --muted: #aaa8c3;
+            --border: rgba(167, 139, 250, 0.18);
+        }
 
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(9, 9, 20, 0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    nav {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      background: linear-gradient(135deg, #a855f7, #4f46e5);
-      box-shadow: 0 0 25px #8b5cf633;
-      font-size: 25px;
-      font-weight: 900;
-    }
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+        .container {
+            width: min(1120px, 92%);
+            margin: 0 auto;
+        }
 
-    .nav-links a:hover {
-      color: white;
-    }
+        /* Header */
 
-    .nav-button {
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      padding: 10px 17px;
-      border-radius: 10px;
-      color: white !important;
-    }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 9, 20, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
 
-    .hero {
-      padding: 100px 0 76px;
-      text-align: center;
-    }
+        .navbar {
+            min-height: 76px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
 
-    .eyebrow {
-      display: inline-block;
-      color: #c4b5fd;
-      border: 1px solid #8b5cf644;
-      background: #8b5cf612;
-      padding: 7px 15px;
-      border-radius: 100px;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      margin-bottom: 25px;
-    }
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text);
+        }
 
-    h1 {
-      max-width: 850px;
-      margin: 0 auto 20px;
-      font-size: clamp(38px, 6vw, 70px);
-      line-height: 1.12;
-      letter-spacing: -2px;
-    }
+        .logo span {
+            color: var(--purple-light);
+        }
 
-    .gradient-text {
-      background: linear-gradient(90deg, #c4b5fd, #a78bfa, #818cf8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
 
-    .hero p {
-      color: var(--muted);
-      max-width: 610px;
-      margin: 0 auto 30px;
-      font-size: 17px;
-    }
+        .nav-links a {
+            color: var(--muted);
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
 
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 13px;
-      flex-wrap: wrap;
-    }
+        .nav-links a:hover {
+            color: var(--purple-light);
+        }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 22px;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: 0.2s;
-    }
+        .nav-button {
+            background: var(--purple);
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 9px;
+        }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #9333ea, #4f46e5);
-      box-shadow: 0 8px 28px #7c3aed30;
-    }
+        .nav-button:hover {
+            background: #7544e8;
+        }
 
-    .btn-secondary {
-      border: 1px solid var(--border);
-      background: #ffffff06;
-    }
+        /* Hero */
 
-    .btn:hover,
-    .tool-card:hover {
-      transform: translateY(-4px);
-    }
+        .hero {
+            text-align: center;
+            padding: 100px 0 80px;
+            background:
+                radial-gradient(
+                    ellipse at top,
+                    rgba(139, 92, 246, 0.19),
+                    transparent 65%
+                );
+        }
 
-    .section {
-      padding: 45px 0 85px;
-    }
+        .hero-label {
+            display: inline-block;
+            color: var(--purple-light);
+            border: 1px solid var(--border);
+            background: rgba(139, 92, 246, 0.09);
+            padding: 7px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
 
-    .section-heading {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 68px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+            max-width: 850px;
+            margin: 0 auto 22px;
+        }
 
-    .section-heading h2 {
-      font-size: clamp(27px, 4vw, 38px);
-      margin-bottom: 9px;
-    }
+        .hero h1 span {
+            color: var(--purple-light);
+        }
 
-    .section-heading p {
-      color: var(--muted);
-    }
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 17px;
+        }
 
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
 
-    .tool-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-height: 255px;
-      padding: 25px;
-      border: 1px solid var(--border);
-      border-radius: 19px;
-      background: linear-gradient(145deg, #171529, #10101d);
-      transition: 0.25s;
-      overflow: hidden;
-    }
+        .button {
+            display: inline-block;
+            padding: 13px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: transform 0.2s ease,
+                        background 0.2s ease;
+        }
 
-    .tool-card:hover {
-      border-color: #8b5cf677;
-      box-shadow: 0 15px 40px #0004;
-    }
+        .button:hover {
+            transform: translateY(-2px);
+        }
 
-    .tool-icon {
-      display: grid;
-      place-items: center;
-      width: 54px;
-      height: 54px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, #8b5cf626, #6366f126);
-      border: 1px solid #8b5cf633;
-      font-size: 25px;
-      margin-bottom: 20px;
-    }
+        .button-primary {
+            background: var(--purple);
+            color: white;
+        }
 
-    .tool-card h3 {
-      font-size: 19px;
-      margin-bottom: 8px;
-    }
+        .button-primary:hover {
+            background: #7544e8;
+        }
 
-    .tool-card p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
+        .button-secondary {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+        }
 
-    .tool-link {
-      margin-top: auto;
-      color: #c4b5fd;
-      font-size: 14px;
-      font-weight: 700;
-    }
+        .button-secondary:hover {
+            background: var(--surface-hover);
+        }
 
-    .tool-link span {
-      margin-left: 5px;
-    }
+        /* Tools */
 
-    .about {
-      margin-bottom: 75px;
-      padding: 40px;
-      text-align: center;
-      background: linear-gradient(135deg, #21143a, #111529);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-    }
+        .tools-section {
+            padding: 60px 0 90px;
+            scroll-margin-top: 90px;
+        }
 
-    .about h2 {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 38px;
+        }
 
-    .about p {
-      max-width: 650px;
-      margin: auto;
-      color: var(--muted);
-    }
+        .section-heading h2 {
+            font-size: clamp(28px, 4vw, 38px);
+            margin-bottom: 10px;
+        }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+        .section-heading p {
+            color: var(--muted);
+            font-size: 15px;
+        }
 
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
 
-    .footer-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 240px;
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: transform 0.2s ease,
+                        border-color 0.2s ease,
+                        background 0.2s ease;
+        }
 
-    @media (max-width: 800px) {
-      .tools-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(167, 139, 250, 0.55);
+            background: var(--surface-hover);
+        }
 
-      .hero {
-        padding-top: 75px;
-      }
+        .tool-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 13px;
+            background: rgba(139, 92, 246, 0.15);
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
 
-      .nav-links {
-        gap: 12px;
-      }
-    }
+        .tool-card h3 {
+            font-size: 19px;
+            margin-bottom: 9px;
+        }
 
-    @media (max-width: 540px) {
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
+        .tool-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
 
-      .nav-links a:not(.nav-button) {
-        display: none;
-      }
+        .tool-link {
+            margin-top: auto;
+            color: var(--purple-light);
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-      .hero {
-        padding: 65px 0 50px;
-      }
+        .tool-link:hover {
+            color: white;
+        }
 
-      .hero p {
-        font-size: 15px;
-      }
+        /* About */
 
-      .about {
-        padding: 28px 20px;
-      }
+        .about-section {
+            padding: 75px 0;
+            background: rgba(18, 18, 37, 0.65);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            scroll-margin-top: 90px;
+        }
 
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-  </style>
+        .about-content {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .about-content p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* Footer */
+
+        footer {
+            padding: 35px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--purple-light);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #77758f;
+            font-size: 12px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive design */
+
+        @media (max-width: 850px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .navbar {
+                min-height: 70px;
+                flex-wrap: wrap;
+                padding: 15px 0;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .nav-button {
+                padding: 7px 10px;
+            }
+
+            .hero {
+                padding: 75px 0 55px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .tools-section {
+                padding: 45px 0 65px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-card {
+                min-height: 215px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .about-content h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="container">
-      <nav>
-        <a href="main.html" class="logo">
-          <span class="logo-mark">N</span>
-          <span>NEXORA</span>
-        </a>
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
 
-        <div class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#tools">Tools</a>
-          <a href="#about">About</a>
-          <a href="contact.html" class="nav-button">Contact Us</a>
+            <a class="logo" href="index.html" aria-label="NEXORA Home">
+                NEX<span>O</span>RA
+            </a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#about">About</a>
+                <a href="contact.html" class="nav-button">Contact Us</a>
+            </nav>
+
         </div>
-      </nav>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section class="hero container" id="home">
-      <span class="eyebrow">TOOLS FOR A SMARTER WORLD</span>
+    <main>
 
-      <h1>
-        One Platform.<br>
-        <span class="gradient-text">Endless Possibilities.</span>
-      </h1>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
 
-      <p>
-        Discover powerful, simple and useful online tools
-        designed to make your everyday tasks faster and easier.
-      </p>
+                <div class="hero-label">
+                    Simple Tools. Smarter Solutions.
+                </div>
 
-      <div class="hero-actions">
-        <a href="#tools" class="btn btn-primary">Explore Tools ↗</a>
-        <a href="#about" class="btn btn-secondary">Discover NEXORA</a>
-      </div>
-    </section>
+                <h1>
+                    Your World of Online Tools,
+                    <span>Simplified.</span>
+                </h1>
 
-    <section class="section container" id="tools">
-      <div class="section-heading">
-        <h2>Explore Our <span class="gradient-text">Tools</span></h2>
-        <p>Everything you need, in one place.</p>
-      </div>
+                <p>
+                    Discover practical online tools designed to help you
+                    work smarter, save time, and get things done with ease.
+                </p>
 
-      <div class="tools-grid">
+                <div class="hero-buttons">
+                    <a href="#tools" class="button button-primary">
+                        Explore Tools
+                    </a>
 
-        <a href="profit-calculator.html" class="tool-card">
-          <div class="tool-icon">📊</div>
-          <h3>Profit Calculator</h3>
-          <p>Calculate revenue, expenses, net profit and profit margins with ease.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+                    <a href="#about" class="button button-secondary">
+                        Learn More
+                    </a>
+                </div>
 
-        <a href="text-counter.html" class="tool-card">
-          <div class="tool-icon">✍️</div>
-          <h3>Text Counter</h3>
-          <p>Count words, characters, sentences and estimate reading time.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+            </div>
+        </section>
 
-        <a href="qr-generator.html" class="tool-card">
-          <div class="tool-icon">▦</div>
-          <h3>QR Code Generator</h3>
-          <p>Create QR codes for links and text in just a few clicks.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+        <!-- Tools Section -->
+        <section class="tools-section" id="tools">
+            <div class="container">
 
-        <a href="image-converter.html" class="tool-card">
-          <div class="tool-icon">🖼️</div>
-          <h3>Image Converter</h3>
-          <p>Convert images between popular formats like JPG, PNG and WEBP.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+                <div class="section-heading">
+                    <h2>Explore Our Tools</h2>
+                    <p>
+                        Useful tools for your everyday digital tasks.
+                    </p>
+                </div>
 
-        <a href="ai-writing.html" class="tool-card">
-          <div class="tool-icon">✧</div>
-          <h3>AI Writing Assistant</h3>
-          <p>Get help drafting, improving and polishing your written content.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+                <div class="tools-grid">
 
-        <a href="password-generator.html" class="tool-card">
-          <div class="tool-icon">🔐</div>
-          <h3>Password Generator</h3>
-          <p>Generate strong random passwords to help protect your accounts.</p>
-          <span class="tool-link">Open Tool <span>↗</span></span>
-        </a>
+                    <!-- Tool 1 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">🧮</div>
 
-      </div>
-    </section>
+                        <h3>Profit Calculator</h3>
 
-    <section class="container" id="about">
-      <div class="about">
-        <h2>Built to Make Life <span class="gradient-text">Easier</span></h2>
-        <p>
-          NEXORA brings useful digital tools together in one clean,
-          modern experience. Our goal is to help everyone work smarter,
-          save time and get more done.
-        </p>
-      </div>
-    </section>
-  </main>
+                        <p>
+                            Calculate revenue, expenses, and estimated
+                            profit to better understand your numbers.
+                        </p>
 
-  <footer id="contact">
-    <div class="container footer-content">
-      <a href="main.html" class="logo">
-        <span class="logo-mark">N</span>
-        <span>NEXORA</span>
-      </a>
+                        <a href="profit-calculator.html" class="tool-link">
+                            Use Calculator →
+                        </a>
+                    </article>
 
-      <p>© <span id="year"></span> NEXORA. All rights reserved.</p>
+                    <!-- Tool 2 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">📝</div>
 
-      <div class="footer-links">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="mailto:">Contact</a>
-      </div>
-    </div>
-  </footer>
+                        <h3>Text Counter</h3>
 
-  <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-  </script>
+                        <p>
+                            Count words, characters, and other text
+                            details quickly and easily.
+                        </p>
+
+                        <a href="text-counter.html" class="tool-link">
+                            Count Text →
+                        </a>
+                    </article>
+
+                    <!-- Tool 3 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">▦</div>
+
+                        <h3>QR Code Generator</h3>
+
+                        <p>
+                            Create QR codes for links and other
+                            information using a simple interface.
+                        </p>
+
+                        <a href="qr-generator.html" class="tool-link">
+                            Generate QR Code →
+                        </a>
+                    </article>
+
+                    <!-- Tool 4 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">🖼️</div>
+
+                        <h3>Image Converter</h3>
+
+                        <p>
+                            Convert images between supported formats
+                            for your digital projects.
+                        </p>
+
+                        <a href="image-converter.html" class="tool-link">
+                            Convert Images →
+                        </a>
+                    </article>
+
+                    <!-- Tool 5 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">✨</div>
+
+                        <h3>AI Writing Assistant</h3>
+
+                        <p>
+                            Get help organizing ideas and improving
+                            your writing workflow.
+                        </p>
+
+                        <a href="ai-writing.html" class="tool-link">
+                            Explore Writing Tool →
+                        </a>
+                    </article>
+
+                    <!-- Tool 6 -->
+                    <article class="tool-card">
+                        <div class="tool-icon" aria-hidden="true">🔐</div>
+
+                        <h3>Password Generator</h3>
+
+                        <p>
+                            Generate strong random passwords to help
+                            protect your online accounts.
+                        </p>
+
+                        <a href="password-generator.html" class="tool-link">
+                            Generate Password →
+                        </a>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+
+                <div class="about-content">
+                    <h2>Welcome to NEXORA</h2>
+
+                    <p>
+                        NEXORA is an online tools platform focused on
+                        making everyday digital tasks easier. Our goal
+                        is to provide simple, accessible, and practical
+                        tools that help people save time and work more
+                        efficiently. We aim to keep improving the
+                        experience as the platform grows.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+                    <a class="logo" href="index.html">
+                        NEX<span>O</span>RA
+                    </a>
+
+                    <p>Tools for a Smarter World.</p>
+                </div>
+
+                <nav class="footer-links" aria-label="Footer navigation">
+                    <a href="index.html">Home</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </nav>
+
+            </div>
+
+            <div class="copyright">
+                © <span id="current-year"></span> NEXORA.
+                All rights reserved.
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
 
 </body>
 </html>
-
